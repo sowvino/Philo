@@ -24,20 +24,17 @@ int main(int argc,char **argv)
     t_philo philo[PHILO_MAX];
     t_lock lock;
     pthread_mutex_t forks[PHILO_MAX];
-    if(check_valid_input(argv) == 1)
-        return(1);
-    if(argc == 5 || argc == 6)
-    {
-        init_lock(&lock, philo);
-        init_forks(forks,ft_atoi(argv[1]));
-        init_philos(philo,&lock, forks, argv);
-        start_dinner(&lock,forks);
-        destroy_all(NULL, &lock, forks);
-        return(0);
-    }
-    else
+    if(argc != 5 && argc != 6)
     {
         error_msg("Enter correct number of arguments");
         return(1);
     }
+    if(check_valid_input(argv) == 1)
+        return(1);
+    init_lock(&lock, philo);
+    init_forks(forks,ft_atoi(argv[1]));
+    init_philos(philo,&lock, forks, argv);
+    start_dinner(&lock,forks);
+    destroy_all(NULL, &lock, forks);
+    return(0);
 }
